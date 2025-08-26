@@ -1,3 +1,4 @@
+use gloo_console::log;
 use gloo_utils::document;
 use leaflet::{LatLng, Map, MapOptions, TileLayer};
 use wasm_bindgen::JsCast;
@@ -17,6 +18,7 @@ pub struct Point(pub f64, pub f64);
 
 #[derive(PartialEq, Properties, Clone)]
 pub struct Props {
+    pub click_callback: Callback<(), ()>
 }
 
 impl MapComponent {
@@ -37,6 +39,16 @@ impl Component for MapComponent {
         let container: HtmlElement = container.dyn_into().unwrap();
         container.set_class_name("map");
         let leaflet_map = Map::new_with_element(&container, &MapOptions::default());
+
+        let call = {
+            let callback = props.click_callback.clone();
+            Box::new(move |_event| {
+                callback.emit(());
+            })
+        };
+
+        leaflet_map.on_mouse_click(call);
+
         Self {
             map: leaflet_map,
             container,
@@ -57,8 +69,6 @@ impl Component for MapComponent {
     }
 
     fn changed(&mut self, ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
-        let props = ctx.props();
-
         false
     }
 
