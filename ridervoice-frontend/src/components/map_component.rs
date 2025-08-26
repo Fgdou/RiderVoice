@@ -2,7 +2,7 @@ use gloo_utils::document;
 use leaflet::{LatLng, Map, MapOptions, TileLayer};
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, Node};
-use yew::{html::ImplicitClone, prelude::*};
+use yew::prelude::*;
 
 pub enum Msg {}
 
@@ -15,17 +15,8 @@ pub struct MapComponent {
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Point(pub f64, pub f64);
 
-#[derive(PartialEq, Clone, Debug)]
-pub struct City {
-    pub name: String,
-    pub lat: Point,
-}
-
-impl ImplicitClone for City {}
-
 #[derive(PartialEq, Properties, Clone)]
 pub struct Props {
-    pub city: City,
 }
 
 impl MapComponent {
@@ -49,7 +40,7 @@ impl Component for MapComponent {
         Self {
             map: leaflet_map,
             container,
-            lat: props.city.lat,
+            lat: Point(53.3493795, -6.2605593),
         }
     }
 
@@ -68,14 +59,7 @@ impl Component for MapComponent {
     fn changed(&mut self, ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
         let props = ctx.props();
 
-        if self.lat == props.city.lat {
-            false
-        } else {
-            self.lat = props.city.lat;
-            self.map
-                .set_view(&LatLng::new(self.lat.0, self.lat.1), 11.0);
-            true
-        }
+        false
     }
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
