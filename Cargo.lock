@@ -843,6 +843,12 @@ dependencies = [
 
 [[package]]
 name = "implicit-clone"
+version = "0.3.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92d6dc8dce3dddd0bc92f5741980eb67c04cb6967d90cb94482741b254ad7555"
+
+[[package]]
+name = "implicit-clone"
 version = "0.4.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8a9aa791c7b5a71b636b7a68207fdebf171ddfc593d9c8506ec4cbc527b6a84"
@@ -1189,7 +1195,12 @@ dependencies = [
 name = "ridervoice-frontend"
 version = "0.1.0"
 dependencies = [
+ "gloo-console 0.2.3",
+ "gloo-utils 0.1.7",
+ "implicit-clone 0.3.10",
  "leaflet",
+ "wasm-bindgen",
+ "web-sys",
  "yew",
 ]
 
@@ -1295,9 +1306,9 @@ dependencies = [
 
 [[package]]
 name = "signal-hook-registry"
-version = "1.4.2"
+version = "1.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a9e9e0b4211b72e7b8b6e85c807d36c212bdb33ea8587f7569562a84df5465b1"
+checksum = "b2a4719bff48cee6b39d12c020eeb490953ad2443b7055bd0b21fca26bd8c28b"
 dependencies = [
  "libc",
 ]
@@ -1731,7 +1742,7 @@ dependencies = [
  "console_error_panic_hook",
  "futures",
  "gloo 0.10.0",
- "implicit-clone",
+ "implicit-clone 0.4.9",
  "indexmap",
  "js-sys",
  "prokio",
